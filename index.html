@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¡Feliz Cumpleaños mi Espochita Linda...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tailwind CSS CDN for rapid beautiful UI -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Animación de fondo con destellos */
+    body {
+      background: linear-gradient(135deg, #ffe6f0 0%, #ffd6e0 100%);
+      overflow-x: hidden;
+    }
+    .confetti {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 20;
+    }
+    /* Animación de typing - permite wrapping y caracteres Unicode */
+    .typing-container {
+      font-family: 'Courier New', Courier, monospace;
+      /* Cambiado para que el mensaje se muestre completo en varias líneas si hace falta */
+      white-space: pre-wrap;       /* mantiene espacios, permite saltos de línea y hace wrap */
+      overflow-wrap: break-word;
+      word-break: break-word;
+      /* border-right lo hacemos con el span .blink, así no recorta el texto */
+    }
+    /* Cursor parpadeante */
+    .blink {
+      display: inline-block;
+      margin-left: 2px;
+      font-weight: 900;
+      animation: blink 1s steps(1) infinite;
+      vertical-align: middle;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* Animación de corazón latiente */
+    .heart {
+      width: 94px;
+      height: 90px;
+      position: relative;
+      margin: 0 auto;
+      animation: beat 1s infinite;
+      background: none;
+      z-index: 2;
+      filter: drop-shadow(0 5px 30px #fbcfe8) drop-shadow(0 8px 40px #f472b6b0);
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 70px;
+      height: 110px;
+      border-radius: 70px 70px 0 0;
+      background: linear-gradient(135deg,#f472b6 30%, #d946ef 80%, #fff0 100%);
+      box-shadow: 0 5px 25px 0 #fae8ff;
+    }
+    .heart::before {
+      left: 70px;
+      transform: rotate(-45deg);
+      transform-origin: 0 100%;
+    }
+    .heart::after {
+      left: 0;
+      transform: rotate(45deg);
+      transform-origin: 100% 100%;
+    }
+    @keyframes beat {
+      0%, 100% { transform: scale(1) rotate(-7deg);}
+      10% { transform: scale(1.2) rotate(7deg);}
+      20% { transform: scale(0.95) rotate(-9deg);}
+      30% { transform: scale(1.1) rotate(5deg);}
+      50% { transform: scale(1) rotate(-7deg);}
+    }
+
+    /* Animación de cartas emergentes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+    .fade-in.delay-1 { animation-delay: 0.7s;}
+    .fade-in.delay-2 { animation-delay: 1.5s;}
+    .fade-in.delay-3 { animation-delay: 2.3s;}
+    .fade-in.delay-4 { animation-delay: 3.1s;}
+
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0);}
+    }
+    /* Botón animado */
+    .glow-btn {
+      background: linear-gradient(90deg, #f472b6, #a78bfa, #f472b6);
+      color: white;
+      font-weight: bold;
+      padding: 0.75rem 2.5rem;
+      border-radius: 9999px;
+      box-shadow: 0 2px 20px 0 #be185d30;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .glow-btn:hover {
+      transform: scale(1.04);
+      box-shadow: 0 4px 40px 0 #be185d70;
+    }
+    .glow-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Animaciones extra para bombones visuales */
+    .animate-bounce-slow {
+      animation: bounce 2.2s infinite;
+    }
+    .animate-bounce-delay {
+      animation: bounce 1.8s infinite .8s;
+    }
+    .animate-spin-slow {
+      animation: spin 9s linear infinite;
+    }
+    @keyframes spin {
+      to {transform: rotate(360deg);}
+    }
+    .delay-200 {animation-delay:0.2s;}
+    .delay-400 {animation-delay:0.4s;}
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center relative select-none">
+
+  <!-- Confetti Canvas for background animation -->
+  <canvas class="confetti" id="confetti-canvas"></canvas>
+  
+  <!-- Top Section: Hero Message -->
+  <section class="w-full flex flex-col items-center justify-center pt-10 pb-2 relative">
+      <div class="animate-bounce-slow absolute -top-4 left-8 hidden md:block text-pink-400 opacity-60 text-6xl select-none">💖</div>
+      <div class="animate-bounce-delay absolute -top-8 right-8 hidden md:block text-fuchsia-400 opacity-80 text-5xl select-none">💝</div>
+      <div class="heart mb-6"></div>
+      <h1 class="text-5xl md:text-7xl text-pink-700 font-extrabold text-center drop-shadow-xl fade-in delay-1 tracking-tight bg-gradient-to-r from-pink-400 via-fuchsia-500 to-pink-700 bg-clip-text text-transparent">
+        ¡Feliz Cumpleaños mi Espochita Linda...
+      </h1>
+      <div class="typing-container text-3xl md:text-4xl mt-6 max-w-4xl text-center mx-auto text-fuchsia-600 fade-in delay-2 px-4" id="typing" style="font-family: 'Georgia', serif; text-shadow: 0 2px 8px rgba(244, 114, 182, 0.3);"></div>
+  </section>
+
+<!-- Fuente manuscrita moderna -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+<div class="my-6 fade-in delay-3 w-full flex justify-center">
+  <div class="rounded-3xl shadow-xl overflow-hidden border-4 border-pink-100 max-w-2xl w-full bg-gradient-to-br from-pink-50 via-pink-100 to-fuchsia-100 p-8 relative">
+    <div class="absolute -left-8 -top-10 md:block hidden animate-spin-slow text-pink-300 text-5xl select-none">🌸</div>
+    <div class="absolute -bottom-8 right-10 animate-pulse text-pink-200 text-6xl select-none">💐</div>
+    <p style="font-family: 'Dancing Script', cursive; font-size: 2rem; line-height: 1.6; text-align: center; color: #8b1352;">
+     En este día tan especial, mi amor, quiero que sepas que eres la historia más hermosa que el destino escribió para mí.
+     Desde que llegaste, cada capítulo de mi vida se volvió más brillante, más dulce y lleno de magia.
+     Hoy celebramos una nueva página en tu libro, y yo tengo el privilegio de seguir leyéndote, cuidándote y amándote en cada línea,
+     mi novela favorita… la que jamás quiero cerrar, porque contigo cada página es eterna.<br><br>
+     Hoy celebro tu existencia y la suerte de caminar a tu lado.<br>
+      <span style="font-size: 1.5rem; color: #c026d3;">¡Que la vida te devuelva millones de sonrisas, abrazos y momentos mágicos!</span>
+    </p>
+    <div class="absolute left-2 top-3 animate-bounce text-pink-400 text-4xl">✨</div>
+  </div>
+</div>
+
+
+
+
+  <!-- Fuente romántica -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+
+<!-- Tarjeta de mensaje con fuente mejorada -->
+<div class="mx-2 max-w-2xl w-full">
+  <div class="bg-gradient-to-br from-pink-50 via-white to-fuchsia-50 border-4 border-fuchsia-200 rounded-3xl shadow-2xl p-8 md:p-12 fade-in delay-4 transition hover:scale-105 duration-500 relative overflow-hidden">
+    
+    <!-- Icono decorativo arriba -->
+    <div class="absolute opacity-40 -left-8 -top-10 text-[120px] pointer-events-none select-none animate-bounce">💕</div>
+    
+    <!-- Título -->
+    <h2 style="font-family: 'Great Vibes', cursive;" class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-fuchsia-600 mb-6 text-center tracking-tight drop-shadow-lg">
+      De mi Corazoncito Para Ti..
+    </h2>
+    
+    <!-- Mensaje -->
+    <p style="font-family: 'Playfair Display', serif;" class="text-xl md:text-2xl text-pink-800 text-center font-medium leading-relaxed drop-shadow-sm">
+      Hoy, el universo sonríe porque celebra el regalo más hermoso que me dio la vida: <br>
+      <span class="font-bold text-fuchsia-700 text-2xl" style="font-family: 'Great Vibes', cursive;">TÚ 💖</span>.<br><br>
+      Eres la melodía más dulce en mis días, mi refugio, mi alegría y mi razón de soñar despierto.<br>
+      Que cada segundo de tu vida se pinte de colores, risas y abrazos infinitos.<br><br>
+      <span class="italic font-bold text-fuchsia-900 text-3xl" style="font-family: 'Great Vibes', cursive;">
+        Te amo más allá de las estrellas... y hasta donde los sueños puedan llegar ✨
+      </span>
+    </p>
+    
+    <!-- Icono decorativo abajo -->
+    <div class="absolute right-0 -bottom-5 opacity-50 text-8xl select-none pointer-events-none animate-pulse">🌷</div>
+  </div>
+</div>
+
+
+
+  <!-- Lluvia de corazones animada -->
+  <div id="hearts-container"></div>
+<!-- Importar fuente Dancing Script -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+  .romantic-font {
+    font-family: 'Dancing Script', cursive;
+  }
+</style>
+
+<!-- Carta sorpresa interactiva -->
+<div class="my-10 flex flex-col items-center romantic-font">
+  <button class="glow-btn text-xl fade-in delay-4" onclick="showSurprise()">
+    💌 Ábreme, Mi Princesa 💖
+  </button>
+
+  <div id="surprise-message" class="hidden mt-8 transition-all duration-700">
+    <div class="bg-gradient-to-br from-pink-50 via-rose-100 to-fuchsia-50 border-4 border-rose-200 rounded-[2.5rem] px-8 py-10 shadow-2xl relative max-w-lg animate__animated animate__fadeInUp">
+      <!-- Decoración -->
+      <span class="absolute -top-8 -left-6 text-7xl animate-bounce select-none pointer-events-none">💌</span>
+      <span class="absolute -bottom-10 right-4 text-8xl animate-spin-slow opacity-60 pointer-events-none">💖</span>
+
+      <!-- Título -->
+      <h2 class="text-4xl font-extrabold text-center bg-gradient-to-r from-pink-500 to-fuchsia-500 bg-clip-text text-transparent mb-6">
+        Para mi amor más bonito ❤️
+      </h2>
+
+      <!-- Mensajes estilo carta -->
+      <p class="text-lg md:text-xl text-fuchsia-900 leading-relaxed mb-4">
+        Hoy no es un día cualquiera… es el día en que el mundo se volvió más hermoso, porque tú llegaste a mi vida  ✨
+      </p>
+      <p class="text-lg md:text-xl text-fuchsia-900 leading-relaxed mb-4">
+        Eres mi alegría en los días grises, mi calma en las tormentas y la razón por la que sonrío incluso sin motivo. 💕
+      </p>
+      <p class="text-lg md:text-xl text-fuchsia-900 leading-relaxed mb-4">
+        Prometo seguir cuidándote, amándote y haciéndote feliz cada día de mi vida 💍
+      </p>
+
+      <!-- Mensaje final -->
+      <div class="bg-white border-2 border-rose-300 rounded-2xl px-6 py-4 text-center shadow-md mt-6">
+        <span class="block text-2xl font-bold text-pink-700">💖 ¡Feliz Cumpleaños mi vida, 💖</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function showSurprise() {
+    document.getElementById('surprise-message').classList.remove('hidden');
+  }
+</script>
+
+<style>
+  .glow-btn {
+    background: linear-gradient(90deg, #f472b6, #ec4899);
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 999px;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(236, 72, 153, 0.6);
+    transition: all 0.3s ease-in-out;
+  }
+  .glow-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(236, 72, 153, 0.9);
+  }
+  .animate-spin-slow {
+    animation: spin 8s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+
+
+  <!-- Footer ultra romántico -->
+  <footer class="text-center mt-10 mb-4 text-fuchsia-600 text-lg md:text-xl font-semibold fade-in delay-4">
+    <span>Con todo mi amor para ti...Hoy y siempre.<br>
+      <span class="font-black text-pink-700 text-2xl animate-pulse">¡Feliz cumpleaños, mi vida hermosa. 🎂💖</span>
+    </span>
+    <div class="mt-2 flex justify-center gap-2">
+      <span class="animate-bounce text-pink-400 text-3xl">💘</span>
+      <span class="animate-bounce text-fuchsia-400 text-3xl delay-200">💖</span>
+      <span class="animate-bounce text-pink-300 text-3xl delay-400">💐</span>
+    </div>
+  </footer>
+
+  <script>
+    // Typing effect for the main message - Unicode-safe and wrapping-friendly
+    const messages = [
+      '🌟 Eres la estrella más brillante de mi universo, mi amor eterno.',
+      '💖 Tu sonrisa es mi hogar, tu abrazo mi paz, tu amor mi razón de ser.',
+      '🦋 Contigo descubrí que el paraíso existe y tiene tu nombre.',
+      '✨ Cada latido de mi corazón susurra tu nombre, hoy y para siempre.',
+      '🌸 Gracias por ser mi milagro diario, mi felicidad infinita.',
+      '💕 ¡Feliz cumpleaños a quien llena mi alma de colores y mi vida de magia!'
+    ];
+
+    let idx = 0;
+    let charIdx = 0;
+    let typingDiv = document.getElementById('typing');
+    let currentChars = []; // array de caracteres (code points) de la frase actual
+
+    function typeLine() {
+      if (idx >= messages.length) return;
+
+      // Si estamos empezando una nueva frase, convertirla en array de codepoints (maneja emojis)
+      if (currentChars.length === 0) {
+        currentChars = Array.from(messages[idx]);
+        charIdx = 0;
+      }
+
+      if (charIdx < currentChars.length) {
+        // Mostrar hasta el carácter actual (unicode-safe)
+        typingDiv.innerHTML = currentChars.slice(0, charIdx + 1).join('') +
+          "<span class='blink text-fuchsia-400 text-2xl'>|</span>";
+        charIdx++;
+        setTimeout(typeLine, 36);
+      } else {
+        // Mensaje completo — dejamos el cursor parpadeando y preparamos la siguiente
+        typingDiv.innerHTML = currentChars.join('') + "<span class='blink text-fuchsia-400 text-2xl'>|</span>";
+        idx++;
+        currentChars = [];
+        charIdx = 0;
+        setTimeout(typeLine, 1200); // espera antes de comenzar siguiente
+      }
+    }
+    typeLine();
+
+    // Sorpresa interactiva
+    function showSurprise() {
+      const msg = document.getElementById("surprise-message");
+      if (msg.classList.contains("hidden")) {
+        msg.classList.remove("hidden");
+        msg.classList.add("fade-in");
+      } else {
+        msg.classList.add("hidden");
+      }
+    }
+
+    // Lluvia de corazones animada mejorada y brillante
+    const heartsContainer = document.getElementById('hearts-container');
+    Object.assign(heartsContainer.style, {
+      pointerEvents: 'none',
+      position: 'fixed',
+      zIndex: 30,
+      inset: 0,
+      width: '100vw',
+      height: '100vh',
+      overflow: 'hidden'
+    });
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      const size = Math.random() * 34 + 28;
+      const heartTypes = ["❤️","💖","💗","💕","💓","💞"];
+      heart.innerHTML = heartTypes[Math.floor(Math.random()*heartTypes.length)];
+      Object.assign(heart.style, {
+        color: ['#d946ef', '#f9a8d4', '#be185d', '#f472b6', '#a78bfa', '#a21caf'][Math.floor(Math.random()*6)],
+        position: 'absolute',
+        left: `${Math.random() * 96}vw`,
+        top: '-50px',
+        fontSize: `${size}px`,
+        opacity: Math.random() * 0.45 + 0.55,
+        userSelect: "none",
+        pointerEvents: "none",
+        textShadow: '0 0 18px #fff4, 0 3px 16px #f472b6b0, 0 -2px 24px #d946ef4d'
+      });
+      heart.animate([
+        { transform: `translateY(0) scale(1) rotate(${Math.random() > 0.5 ? '-' : ''}${Math.random()*35}deg)` },
+        { transform: `translateY(${window.innerHeight + 90}px) scale(${Math.random()*0.7 + 0.8}) rotate(${Math.random()*320}deg)` }
+      ], {
+        duration: Math.random() * 1800 + 4300,
+        easing: 'ease-in'
+      });
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heartsContainer.removeChild(heart), 6000);
+    }
+    setInterval(createHeart, 130);
+
+    // Bonus: suavemente emergen brillos estrellas pequeñas
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.textContent = "✨";
+      Object.assign(sparkle.style, {
+        color: ['#fad5ec','#fff','#f472b6','#f9a8d4','#e879f9'][Math.floor(Math.random()*5)],
+        fontSize: `${Math.random()*20+16}px`,
+        position: 'absolute',
+        top: `${Math.random()*100}vh`,
+        left:`${Math.random()*100}vw`,
+        opacity: Math.random()*0.4+0.2,
+        userSelect: "none",
+        pointerEvents: "none",
+        zIndex: 60,
+        filter: 'blur(0.3px)',
+        transition: 'all 1s'
+      });
+      heartsContainer.appendChild(sparkle);
+      setTimeout(()=> {heartsContainer.removeChild(sparkle);}, 2400);
+    }
+    setInterval(createSparkle, 420);
+  </script>
+</body>
+</html>
