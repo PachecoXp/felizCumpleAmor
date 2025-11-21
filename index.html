@@ -135,6 +135,17 @@
 <body class="min-h-screen flex flex-col items-center relative select-none">
   <audio autoplay loop>
   <source src="CREO EN TU AMOR.mp3" type="audio/mpeg">
+    <audio id="musica" autoplay loop>
+  <source src="CREO EN TU AMOR.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  document.addEventListener("click", () => {
+    const m = document.getElementById("musica");
+    m.muted = false;
+    m.play();
+  });
+</script>
 </audio>
   <!-- Confetti Canvas for background animation -->
   <canvas class="confetti" id="confetti-canvas"></canvas>
